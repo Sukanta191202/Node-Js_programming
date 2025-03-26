@@ -10,7 +10,7 @@ router
      .post('/', validate(productValideation.create),productController.createProduct)
      .get('/get', productController.getProductList)
      // .patch('/:productId', productController.updateProductData)
-     // .delete('/:productId', productController.deleteProduct)
+     .delete('/:productId', productController.deleteProduct)
 
 
      export  const  productRouter = router ;

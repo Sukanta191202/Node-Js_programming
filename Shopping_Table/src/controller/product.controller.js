@@ -28,29 +28,7 @@ class ProductControler{
         }
     }
 
-
-    async getProductList(req ,res) {
-        try{
-            const product =await Products.find();
-            return sendResponse(res.json({
-                status : HTTP_STATUS.OK, 
-                sucress : true ,
-                message : product.length ? RESPONSE_MESSAGE.FETCH_ALL_PRODUCT : RESPONSE_MESSAGE .NO_PRODUCTS, 
-                data : product
-            }))
-
-        }catch(error){
-            console.error("Error => ",error);
-            return sendResponse( res , {
-                status : HTTP_STATUS.INTERNAL_SERVER_ERROR ,
-                message : RESPONSE_MESSAGE.INTERNAL_ERROR , 
-                 sucess: false
-                 });
-        }
-    }
-
-
-    // async getProductList(req, res) {
+// async getProductList(req, res) {
     //     try {
     //         const products = await Products.find();
     //         return res.status(200).json({
@@ -67,6 +45,64 @@ class ProductControler{
     //     }
     // }
 
+    async getProductList(req ,res) {
+        try{
+            const product =await Products.find();
+            return sendResponse(res , {
+                status : HTTP_STATUS.OK, 
+                sucress : true ,
+                message : product.length ? RESPONSE_MESSAGE.FETCH_ALL_PRODUCT : RESPONSE_MESSAGE.NO_PRODUCTS, 
+                data : product
+            })
+
+        }catch(error){
+            console.error("Error => ",error);
+            return sendResponse( res , {
+                status : HTTP_STATUS.INTERNAL_SERVER_ERROR ,
+                message : RESPONSE_MESSAGE.INTERNAL_ERROR , 
+                 sucess: false
+                 });
+        }
+    }
+
+
+
+    async deleteProduct(req,res){
+        try{
+            const { productId } = req.params;
+            const product = await Products.findById(productId);
+
+            if(!product){
+                return sendResponse(res , { 
+                    status : HTTP_STATUS.BAD_REQUEST,
+                     message: RESPONSE_MESSAGE.PRODUCT_NOT_FOUND , 
+                     sucess : false, 
+                    })
+            }
+
+            await Products.findByIdAndDelete(productId);
+            return sendResponse(res, { 
+                status : HTTP_STATUS.OK,
+                message : RESPONSE_MESSAGE.PRODUCT_DELETED,
+                sucess : true,
+                data : product
+
+            });
+
+
+        }catch(error){
+            console.error("error =>", error);
+            return sendResponse(res,{
+                status: HTTP_STATUS.NOT_FOUND ,
+                message : RESPONSE_MESSAGE.PRODUCT_NOT_FOUND,
+                sucess : false,
+
+            });
+
+        }
+    }
+
+    
 }
 
 export default new ProductControler();
