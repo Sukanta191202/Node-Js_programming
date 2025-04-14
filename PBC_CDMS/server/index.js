@@ -7,6 +7,7 @@ const PORT = process.env.PORT
 
 dbConnection()
 
-server.listen(PORT || 8080 , ()=>{
-    console.log(" your server is running successfully " , PORT)
+server.listen( PORT || 8080 ,()=>{
+    console.log("your server is running sucessfully ", PORT);
+    
 })

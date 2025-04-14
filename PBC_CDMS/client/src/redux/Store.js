@@ -1,9 +1,11 @@
+
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './UserState'
+import themeReducer from './themeSlice';
+import dashboardReducer from './dashboardSlice';
 
 export const store = configureStore({
   reducer: {
-    user:userReducer
+    theme: themeReducer,
+    dashboard: dashboardReducer,
   },
 });
-export default store;

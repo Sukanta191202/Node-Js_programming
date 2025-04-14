@@ -1,138 +1,72 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Layout from "./components/layout/Layout";
+import {
+    Cirtificates,
+    Dashboard,
+    Meetings,
+    Members,
+    NotFound,
+    NoticeBoard,
+    Routines,
+    Settings,
+    Syllabus,
+} from "./pages";
 
-import { HeaderLayout } from "./components/layout/HeaderLayout";
-import { Login } from "./components/auth/Login";
-import { Toaster } from "sonner";
+// Create a client
+const queryClient = new QueryClient();
 
-import { DashboardPages } from "./pages/DashboardPages";
-import MeetingPage from "./pages/MeetingPages";
-import NoticeBoardPage from "./pages/NoticeBoardPage";
-import SyllabusPage from "./pages/SyllabusPage";
-import RoutinePage from "./pages/RoutinePage";
-import CertificatePage from "./pages/CertificatePage";
-import SettingsPages from "./pages/SettingsPages";
-
-import ProtectedRoute from "./components/common/ProtectedRoute";
-import Error from "./components/common/Error";
-import { Register } from "./components/auth/Register";
-import MemberPages from "./pages/MemberPages";
-
-function App() {
-    const isLogin = useSelector((state) => state.user.isLogin);
-
-    return (
-        <BrowserRouter>
-            <Toaster position="top-right" reverseOrder={false} />
-
-            <Routes>
-                <Route path="/" element={<HeaderLayout />}>
-                    <Route
-                        index
-                        element={
-                            <ProtectedRoute
-                                element={DashboardPages}
-                                allowedRoles={[
-                                    "hod",
-                                    "faculty",
-                                    "student",
-                                    "external",
-                                ]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="meetings"
-                        element={
-                            <ProtectedRoute
-                                element={MeetingPage}
-                                allowedRoles={["hod", "faculty", "external"]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="notices"
-                        element={
-                            <ProtectedRoute
-                                element={NoticeBoardPage}
-                                allowedRoles={["hod", "faculty", "student"]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="syllabus"
-                        element={
-                            <ProtectedRoute
-                                element={SyllabusPage}
-                                allowedRoles={[
-                                    "hod",
-                                    "faculty",
-                                    "student",
-                                    "external",
-                                ]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="routine"
-                        element={
-                            <ProtectedRoute
-                                element={RoutinePage}
-                                allowedRoles={["hod", "faculty", "student"]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="certificates"
-                        element={
-                            <ProtectedRoute
-                                element={CertificatePage}
-                                allowedRoles={["hod", "external"]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="settings"
-                        element={
-                            <ProtectedRoute
-                                element={SettingsPages}
-                                allowedRoles={[
-                                    "hod",
-                                    "faculty",
-                                    "student",
-                                    "external",
-                                ]}
-                            />
-                        }
-                    />
-                    <Route
-                        path="members"
-                        element={
-                            <ProtectedRoute
-                                element={MemberPages}
-                                allowedRoles={[
-                                    "hod",
-                                ]}
-                            />
-                        }
-                    />
-                </Route>
-                <Route path="/error" element={<Error />} />
-                <Route path="*" element={<Error />} />
-
-                <Route
-                    path="/login"
-                    element={isLogin ? <Navigate to="/" replace /> : <Login />}
-                />
-                <Route
-                    path="/register"
-                    element={
-                        isLogin ? <Navigate to="/" replace /> : <Register />
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
-    );
-}
+const App = () => (
+    <Provider store={store}>
+        <ThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                <TooltipProvider>
+                    <Toaster />
+                    <Sonner />
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<Layout />}>
+                                <Route index element={<Dashboard />} />
+                                <Route
+                                    path="/routines"
+                                    element={<Routines />}
+                                />
+                                <Route
+                                    path="/cirtificates"
+                                    element={<Cirtificates />}
+                                />
+                                <Route
+                                    path="/meetings"
+                                    element={<Meetings />}
+                                />
+                                <Route path="/members" element={<Members />} />
+                                <Route
+                                    path="/notice-board"
+                                    element={<NoticeBoard />}
+                                />
+                                <Route
+                                    path="/settings"
+                                    element={<Settings />}
+                                />
+                                <Route
+                                    path="/syllabus"
+                                    element={<Syllabus />}
+                                />
+                            </Route>
+                            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </BrowserRouter>
+                </TooltipProvider>
+            </QueryClientProvider>
+        </ThemeProvider>
+    </Provider>
+);
 
 export default App;

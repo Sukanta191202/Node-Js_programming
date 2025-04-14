@@ -12,7 +12,7 @@ class NotificationController {
 
             return sendResponse(res, {
                 status: HTTP_STATUS.CREATED,
-                message: RESPONSE_MESSAGES.NOTIFOICATION_CREATED,
+                message: RESPONSE_MESSAGES.NOTIFICATION_CREATED,
                 success : true ,
                 data : notification,
             });
@@ -33,7 +33,7 @@ class NotificationController {
             return sendResponse(res , {
                 status : HTTP_STATUS.OK, 
                 sucress : true ,
-                message : notification.length ? RESPONSE_MESSAGES.FETCH_ALL_NOTIFOICATION : RESPONSE_MESSAGES.NO_NOTIFOICATION, 
+                message : notification.length ? RESPONSE_MESSAGES.FETCH_ALL_NOTIFICATION : RESPONSE_MESSAGES.NO_NOTIFICATION, 
                 data : notification
             })
 
@@ -89,7 +89,7 @@ class NotificationController {
             if(!notificationExist){
                 return sendResponse(res, {
                     status: HTTP_STATUS.BAD_REQUEST,
-                    message: RESPONSE_MESSAGES.NOTIFOICATION_NOT_EXIST,
+                    message: RESPONSE_MESSAGES.NOTIFICATION_NOT_EXIST,
                     success: false,
                     
                 });
@@ -98,7 +98,7 @@ class NotificationController {
 
             return sendResponse(res, {
                 status: HTTP_STATUS.OK,
-                message: RESPONSE_MESSAGES.NOTIFOICATION_UPDATED,
+                message: RESPONSE_MESSAGES.NOTIFICATION_UPDATED,
                 success: true,
                 data: notification ,
             });
@@ -124,7 +124,7 @@ class NotificationController {
             if(!notification){
                 return sendResponse(res , { 
                     status : HTTP_STATUS.BAD_REQUEST,
-                     message: RESPONSE_MESSAGES.NOTIFOICATION_NOT_FOUND, 
+                     message: RESPONSE_MESSAGES.NOTIFICATION_NOT_FOUND, 
                      sucess : false, 
                     })
             }
@@ -132,7 +132,7 @@ class NotificationController {
             await Notifications.findByIdAndDelete(notificationId);
             return sendResponse(res, { 
                 status : HTTP_STATUS.OK,
-                message : RESPONSE_MESSAGES.NOTIFOICATION_DELETE,
+                message : RESPONSE_MESSAGES.NOTIFICATION_DELETE,
                 sucess : true,
                 data : notification 
 
@@ -143,7 +143,7 @@ class NotificationController {
             console.error("error =>", error);
             return sendResponse(res,{
                 status: HTTP_STATUS.NOT_FOUND ,
-                message : RESPONSE_MESSAGES.NOTIFOICATION_NOT_FOUND,
+                message : RESPONSE_MESSAGES.NOTIFICATION_NOT_FOUND,
                 sucess : false,
 
             });

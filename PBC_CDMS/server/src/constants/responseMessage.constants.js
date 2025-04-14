@@ -5,7 +5,6 @@ export const RESPONSE_MESSAGES = {
     TODO_NOT_FOUND: "Todo not exist",
     TITLE_REQUIRED: "Title is required",
     FETCH_ALL_TODOS: "Fetch all todo list",
-    FETCH_ALL_SYLLABUS: "Fetch all Syllabus",
     NO_TODOS: "No todos are available!",
     INTERNAL_ERROR: "Internal Error",
     SYLLABUS_CREATED: "Syllabus created successfully",
@@ -13,14 +12,14 @@ export const RESPONSE_MESSAGES = {
     SYLLABUS_DELETE: "Syllabus deleted success",
     NO_CONTENT: "No content found",
 
-    NOTIFOICATION_CREATED: "Notification created successfully",
-    NOTIFOICATION_UPDATED: "Notification update success",
-    NOTIFOICATION_DELETE: "Notification deleted success",
-    NOTIFOICATION_NOT_EXIST: "Notification doesn't exist",
-    NOTIFOICATION_NOT_FOUND: "Notification not found",
-    FETCH_ALL_NOTIFOICATION : "Fetch all Notification list",
-    NO_NOTIFOICATION: "No notification are available",
+    NOTIFICATION_CREATED: "Notification created successfully",
+    NOTIFICATION_UPDATED: "Notification update success",
+    NOTIFICATION_DELETE: "Notification deleted success",
+    NOTIFICATION_NOT_EXIST: "Notification doesn't exist",
+    NOTIFICATION_NOT_FOUND: "Notification not found",
+    FETCH_ALL_NOTIFICATION : "Fetch all Notification list",
+    NO_NOTIFICATION: "No notification are available",
     
 
-
+    
 }
